@@ -1,9 +1,18 @@
-import { Button } from "@/components/ui/button";
+import { usersManager } from "@/managers/users.managers";
 
-export default function Home() {
+async function Page() {
+  const users = await usersManager.getAllUsers();
+
   return (
     <div>
-      <Button size="lg">Secondary</Button>
+      <h1>Users</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.first_name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
+
+export default Page;
