@@ -62,8 +62,12 @@ class UsersManager {
     return data[0];
   }
 
-  async deleteUser(id: number): Promise<void> {
-    const { error } = await Supabase.from("Users").delete().eq("id", id);
+  async deleteUser(userId: number): Promise<void> {
+    if (userId == null) {
+      throw new Error("User ID is null or undefined");
+    }
+
+    const { error } = await Supabase.from("Users").delete().eq("id", userId);
 
     if (error) {
       throw new Error(`Failed to delete user: ${error.message}`);
